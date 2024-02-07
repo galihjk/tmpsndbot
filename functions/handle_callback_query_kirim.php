@@ -6,6 +6,9 @@ function handle_callback_query_kirim($botdata){
     ){
         $datakirim = $botdata["message"]["reply_to_message"];
         $jenis = str_replace("kirim_","",$botdata["data"]);
+        $explode = explode("_",$jenis);
+        $templateKey = $explode[count($explode)-1];
+        $jenis = substr($jenis,0,-strlen("_$templateKey"));
         f("bot_kirim_perintah")('answerCallbackQuery',[
             'callback_query_id' => $botdata['id'],
             'text' => "SIAP!",
@@ -19,7 +22,7 @@ function handle_callback_query_kirim($botdata){
         ]);
         if(!empty($result['ok'])){
             if($jenis == "text"){
-                return f("handle_message_send_text")($datakirim);
+                return f("handle_message_send_text")($datakirim, $templateKey);
             }
             else{
                 $explode = explode("_",$jenis);
@@ -30,7 +33,7 @@ function handle_callback_query_kirim($botdata){
                         return false;
                     }
                     else{
-                        return f("handle_message_send_media")($datakirim, $jenis, $fileid);
+                        return f("handle_message_send_media")($datakirim, $jenis, $templateKey, $fileid);
                     }
                 }
                 else{

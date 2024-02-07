@@ -1,5 +1,5 @@
 <?php
-function post_to_channel($botdata, $type, $fileid = ""){
+function post_to_channel($botdata, $type, $templateKey, $fileid = ""){
     if($type == 'text'){
         $text = $botdata["text"];
     }
@@ -8,6 +8,9 @@ function post_to_channel($botdata, $type, $fileid = ""){
     }
     $text = str_replace("<","&lt;",$text);
     $text = str_replace("<","&lt;",$text);
+    $text .= "\n" . f("get_config")("templates")[$templateKey];
+    $text .= "\n" . $botdata["from"]["first_name"];
+
     $chat_id = $botdata["chat"]["id"];
     if(f("check_word_filter")($text, $chat_id)){
         $resend_mode = f("get_config")("resend_mode","");

@@ -1,5 +1,5 @@
 <?php
-function handle_message_send_text($botdata){
+function handle_message_send_text($botdata, $templateKey){
     $text = $botdata["text"] ?? "";
     $chat_id = $botdata["chat"]["id"];
     $data_user = f("get_user")($botdata["from"]["id"]);
@@ -17,7 +17,7 @@ function handle_message_send_text($botdata){
         $free_msg_used++;
         f("db_q")("update users set free_msg_used = $free_msg_used where id = '$chat_id'");
         // $channelpost = f("post_text_to_channel")($chat_id,$text);
-        $channelpost = f("post_to_channel")($botdata, 'text');
+        $channelpost = f("post_to_channel")($botdata, 'text', $templateKey);
         if(!empty($channelpost['result']['message_id'])){
             $sent_message_id = $channelpost['result']['message_id'];
             $success_text = "<b>Berhasil!</b>\nSisa kuota gratis: ".($pesan_max-$free_msg_used);
@@ -30,7 +30,7 @@ function handle_message_send_text($botdata){
             $coin -= $biaya;
             f("db_q")("update users set coin=$coin where id='".$data_user['id']."'");
             // $channelpost = f("post_text_to_channel")($chat_id,$text);
-            $channelpost = f("post_to_channel")($botdata, 'text');
+            $channelpost = f("post_to_channel")($botdata, 'text', $templateKey);
             if(!empty($channelpost['result']['message_id'])){
                 $sent_message_id = $channelpost['result']['message_id'];
                 $success_text = "<b>Berhasil!</b>\nBiaya: $biaya 🪙\nSisa: $coin 🪙";                        

@@ -131,15 +131,18 @@ function handle_message_resend($botdata){
                 ]);
             }
 
+            $keyboard = [];
+            foreach(f("get_config")("templates") as $k=>$v){
+                $keyboard[] = [$v, "kirim_$kirimjenis"."_$k"];
+            }
+            $keyboard[] = ['❌ BATALKAN', "kirimbatal"];
+
             $kirimconfirm = f("bot_kirim_perintah")("sendMessage",[
                 "chat_id"=>$chat_id,
-                "text"=>"KONFIRMASI\n<i>*Klik tombol kirim untuk melanjutkan.</i>",
+                "text"=>"Pilih Template",
                 "parse_mode"=>"HTML",
                 "reply_to_message_id"=>$botdata["message_id"],
-                'reply_markup'=>f("gen_inline_keyboard")([
-                    ['❌ BATAL', "kirimbatal"],
-                    ['✅ KIRIM', "kirim_$kirimjenis"],
-                ],2),
+                'reply_markup'=>f("gen_inline_keyboard")($keyboard,1),
             ]);
             if(!empty($kirimconfirm["result"]["message_id"])){
                 f("data_save")("waitingsendconfirm$chat_id",$kirimconfirm["result"]["message_id"]);
