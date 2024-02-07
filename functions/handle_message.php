@@ -41,7 +41,7 @@ function handle_message($botdata){
         }
     }
     elseif(!f("handle_botdata_functions")($botdata,[
-        // "handle_messagegroup_comments",
+        "handle_messagegroup_comments",
         "handle_messagegroup_force_subs",
         "handle_messagegroup_others",
     ])){

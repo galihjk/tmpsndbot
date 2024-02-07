@@ -14,7 +14,7 @@ function handle_messagegroup_comments($botdata){
             
             $reply_to_message_id = $reply_to_message['forward_from_message_id'] ?? [];
             $oleh = "";
-            // file_put_contents("log/groupdiscuserentities".date("Y-m-d-H-i").".txt", print_r([$reply_to_message, $reply_to_message['entities'], $entities],true));
+            file_put_contents("log/groupdiscuserentities".date("Y-m-d-H-i").".txt", print_r([$reply_to_message, $reply_to_message['entities'], $entities],true));
             foreach($entities as $entity){
                 if($entity['type'] == "text_link"){
                     $botuname = f("get_config")("botuname","");
@@ -29,7 +29,7 @@ function handle_messagegroup_comments($botdata){
             else{
                 $komentator = $botdata['from']['first_name'] . (empty($botdata['from']['username'])?'':" (@".$botdata['from']['username'].")");
             }
-            code:
+            // code:
             $komentator = str_replace("<","&lt;",$komentator);
             if(empty($reply_to_message_id)) return true;
             $url = f("channel_url")("/$reply_to_message_id?comment=".$botdata['message_id']);
