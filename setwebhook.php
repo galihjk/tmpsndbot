@@ -11,4 +11,5 @@ print_r(
         'drop_pending_updates'=>true,
     ])
 );
+f("webhook_ok")();
 echo "</pre>";

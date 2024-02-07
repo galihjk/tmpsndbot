@@ -6,10 +6,10 @@ function post_to_channel($botdata, $type, $templateKey, $fileid = ""){
     else{
         $text = $botdata["caption"];
     }
-    $text = str_replace("<","&lt;",$text);
-    $text = str_replace("<","&lt;",$text);
     $text .= "\n" . f("get_config")("templates")[$templateKey];
     $text .= "\n" . $botdata["from"]["first_name"];
+    if(!empty($botdata["from"]["username"])) $text .= " @" . $botdata["from"]["username"];
+    $text = str_replace("<","&lt;",$text);
 
     $chat_id = $botdata["chat"]["id"];
     if(f("check_word_filter")($text, $chat_id)){
