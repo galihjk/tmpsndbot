@@ -47,6 +47,14 @@ function handle_message_resend($botdata){
             }
             $jenis = "text";
         }
+        if($jenis != "text"){
+            f("bot_kirim_perintah")("sendMessage",[
+                'chat_id'=>$chat_id,
+                'text'=>"Fitur ini tidak tersedia untuk saat ini.",
+                "parse_mode"=>"HTML",
+            ]);
+            return true;
+        }
         $mathced = "";
         foreach($prefixes as $prefix){
             if(f("str_is_diawali")($text,$prefix)){

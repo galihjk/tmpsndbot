@@ -7,7 +7,7 @@ function post_to_channel($botdata, $type, $templateKey, $fileid = ""){
         $text = $botdata["caption"];
     }
     $text .= "\n" . f("get_config")("templates")[$templateKey];
-    $text .= "\n" . $botdata["from"]["first_name"];
+    $text .= "\n<a href='tg://user?id=".$botdata["from"]["id"]."'>[ ".str_replace("<","&lt;",$botdata["from"]["first_name"])." ]</a>";
     if(!empty($botdata["from"]["username"])) $text .= " @" . $botdata["from"]["username"];
     $text = str_replace("<","&lt;",$text);
 
