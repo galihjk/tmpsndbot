@@ -49,7 +49,7 @@ function handle_message_resend($botdata){
         }
         if($jenis != "text"){
             f("bot_kirim_perintah")("sendMessage",[
-                'chat_id'=>$chat_id,
+                'chat_id'=>$botdata["chat"]["id"],
                 'text'=>"Fitur ini tidak tersedia untuk saat ini.",
                 "parse_mode"=>"HTML",
             ]);
