@@ -1,5 +1,6 @@
 <?php 
 function handle_update_sesuai_jenis($jenis){
+    file_put_contents("log/last_input.txt", file_get_contents("php://input"));
     $update = json_decode(file_get_contents("php://input"), TRUE);
     foreach($jenis as $item_jenis){
         if(!empty($update[$item_jenis])){
