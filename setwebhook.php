@@ -9,6 +9,7 @@ print_r(
     f("bot_kirim_perintah")("setWebhook",[
         'url'=>$webhook,
         'drop_pending_updates'=>true,
+        'allowed_updates'=>json_encode(include("jenis_update.php")),
     ])
 );
 f("webhook_ok")();

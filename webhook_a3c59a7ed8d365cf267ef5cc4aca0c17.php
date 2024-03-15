@@ -1,12 +1,7 @@
 <?php
 include("init.php");
 try {
-    $jenis_update = [
-        "message",
-        "edited_message",
-        "callback_query",
-        "my_chat_member",
-    ];
+    $jenis_update = include("jenis_update.php");
 
     f("handle_update_sesuai_jenis")($jenis_update);
 
