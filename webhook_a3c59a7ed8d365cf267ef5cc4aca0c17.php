@@ -3,6 +3,7 @@ include("init.php");
 try {
     $jenis_update = [
         "message",
+        "edited_message",
         "callback_query",
         "my_chat_member",
     ];
