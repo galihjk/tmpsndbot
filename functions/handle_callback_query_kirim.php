@@ -4,6 +4,7 @@ function handle_callback_query_kirim($botdata){
     and f("str_is_diawali")($botdata["data"], "kirim_")
     and !empty($botdata["message"]["reply_to_message"])
     ){
+        $chat_id = $botdata["message"]["chat"]["id"];
         $lastconfirm = f("data_load")("waitingsendconfirm$chat_id",0);
         if(!$lastconfirm){
             f("bot_kirim_perintah")('answerCallbackQuery',[
@@ -23,7 +24,6 @@ function handle_callback_query_kirim($botdata){
             'text' => "SIAP!",
             'show_alert' => false,
         ]);
-        $chat_id = $botdata["message"]["chat"]["id"];
         $message_id = $botdata["message"]["message_id"];
         $result = f("bot_kirim_perintah")("deleteMessage",[
             'chat_id'=>$chat_id,
