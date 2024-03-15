@@ -4,6 +4,15 @@ function handle_callback_query_kirim($botdata){
     and f("str_is_diawali")($botdata["data"], "kirim_")
     and !empty($botdata["message"]["reply_to_message"])
     ){
+        $lastconfirm = f("data_load")("waitingsendconfirm$chat_id",0);
+        if(!$lastconfirm){
+            f("bot_kirim_perintah")('answerCallbackQuery',[
+                'callback_query_id' => $botdata['id'],
+                'text' => "GAGAL! \nMohon maaf, telah terjadi kesalahan. Silakan coba lagi.",
+                'show_alert' => true,
+            ]);
+            return true;
+        }
         $datakirim = $botdata["message"]["reply_to_message"];
         $jenis = str_replace("kirim_","",$botdata["data"]);
         $explode = explode("_",$jenis);
