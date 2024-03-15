@@ -3,6 +3,7 @@ function handle_edited_message($botdata){
     $chat_id = $botdata["chat"]["id"];
     $lastconfirm = f("data_load")("waitingsendconfirm$chat_id",0);
     if(!empty($lastconfirm)){
+        f("data_delete")("waitingsendconfirm$chat_id",0);
         f("bot_kirim_perintah")("editMessageText",[
             'chat_id'=>$chat_id,
             'message_id'=>$lastconfirm,
